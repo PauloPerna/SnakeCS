@@ -14,9 +14,7 @@
             Tela.InserirCobra(cobrinha);
 
             // Criar alimento
-            Random rnd = new Random();
-            // TODO: impedir sobreposicao alimento com cobra
-            Alimento Comida = new Alimento(rnd.Next(1,Tela.Largura-1),rnd.Next(1,Tela.Altura-1));
+            Alimento Comida = new Alimento(cobrinha,Tela.Largura,Tela.Altura);
             Tela.InserirAlimento(Comida);
 
             // Gerar Tela
@@ -30,15 +28,30 @@
                 Tela.InserirCobra(cobrinha);
                 
                 // Checar sobreposições da cabeça com
-                //   com alimento
                 //   com paredes
+                if(cobrinha.PosicaoX == 0 || 
+                    cobrinha.PosicaoX == Tela.Largura || 
+                    cobrinha.PosicaoY == 0 || 
+                    cobrinha.PosicaoY == Tela.Altura){
+                        cobrinha.Viva = false;
+                    }
+                //   com alimento
+                if(cobrinha.PosicaoX == Comida.PosicaoX &&
+                    cobrinha.PosicaoY == Comida.PosicaoY){
+                        cobrinha.Alimentar(Comida);
+                    }
                 //   com o corpo
-                //   Se sim, então gerar outro alimento
+                if(cobrinha.Corpo.FirstOrDefault(c => c.PosicaoX == cobrinha.PosicaoX &&
+                                                 c.PosicaoY == cobrinha.PosicaoY, null)!= null){
+                        cobrinha.Viva = false;
+                    }
+
+                // Capturamos o proximo movimento                
+
                 Tela.AtualizarTela();
-                
                 System.Threading.Thread.Sleep(speed);
             }
-
+            Tela.FimDeJogo();
         }
     }
 }

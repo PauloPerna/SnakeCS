@@ -75,9 +75,22 @@ namespace Jogo{
         public char Simbolo { get; set; }
         public int PosicaoX { get; set; }
         public int PosicaoY { get; set; }
-        public Alimento(int posicaoX, int posicaoY){
-            this.PosicaoX = posicaoX;
-            this.PosicaoY = posicaoY;
+        public Alimento(Snake cobrinha, int telaLargura, int telaAltura){
+            Random rnd = new Random();
+            bool sobreposicaoCabeca = true;
+            bool sobreposicaoCorpo = true;
+            // Testamos a sobreposicao com a cobra, caso exista nós recriamos o alimento
+            while(sobreposicaoCabeca || sobreposicaoCorpo){
+                // Geramos uma posicao dentro da tela do jogo
+                this.PosicaoX = rnd.Next(1,telaLargura-1);
+                this.PosicaoY = rnd.Next(1,telaAltura-1);
+                // Testamos a sobreposicao com a cabeça
+                sobreposicaoCabeca = this.PosicaoX == cobrinha.PosicaoX && this.PosicaoY == cobrinha.PosicaoY;
+                // Testamos a sobreposicao com o corpo, tentando encontrar alguma parte do corpo com a posicao identica
+                //  a do alimento
+                Dot CorpoSobreposto = cobrinha.Corpo.FirstOrDefault(c => c.PosicaoX == this.PosicaoX && c.PosicaoY == this.PosicaoY,null);
+                sobreposicaoCorpo = CorpoSobreposto != null;
+            }
             this.Simbolo = '*';
         }
     }

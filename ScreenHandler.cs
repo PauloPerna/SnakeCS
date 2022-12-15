@@ -77,5 +77,19 @@ namespace Jogo{
         public void InserirAlimento(Alimento alimento){
             InserirCaracter(alimento.Simbolo,alimento.PosicaoX,alimento.PosicaoY);
         }
+        public void FimDeJogo(){
+            InserirCaracter('F',this.Largura/2 - 5, this.Altura/2);
+            InserirCaracter('I',this.Largura/2 - 4, this.Altura/2);
+            InserirCaracter('M',this.Largura/2 - 3, this.Altura/2);
+            InserirCaracter(' ',this.Largura/2 - 2, this.Altura/2);
+            InserirCaracter('D',this.Largura/2 - 1, this.Altura/2);
+            InserirCaracter('E',this.Largura/2, this.Altura/2);
+            InserirCaracter(' ',this.Largura/2 + 1, this.Altura/2);
+            InserirCaracter('J',this.Largura/2 + 2, this.Altura/2);
+            InserirCaracter('O',this.Largura/2 + 3, this.Altura/2);
+            InserirCaracter('G',this.Largura/2 + 4, this.Altura/2);
+            InserirCaracter('O',this.Largura/2 + 5, this.Altura/2);
+            this.AtualizarTela();
+        }
     }
 }
