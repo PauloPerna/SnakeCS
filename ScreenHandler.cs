@@ -6,35 +6,49 @@ namespace ScreenHandler{
         2. Controlar output de caracteres nas posições dadas
     */
     class Screen{
-        // Altura da Tela
-        private int Altura { get; set; }
         // Largura da Tela
         private int Largura { get; set; }
-        // A tela será um array de strings que serão escritas na tela do jogador
-        //  com a função WriteLine
-        private string[] Tela { get; set; }
-        public Screen(int altura, int largura){
+        // Altura da Tela
+        private int Altura { get; set; }
+        // A tela será uma matriz de Chars que serão escritas na tela do jogador
+        //  com a função Write
+        private char[,] Tela { get; set; }
+        public Screen(int largura, int altura){
             /*
-                Repare que o construtor também escreve a tela inicial do jogo
+                Repare que o construtor também escreve a tela inicial do jogo,
+                 isso é necessário para que já saibamos onde posicionar o cursor
+                 na hora de atualizar a tela
             */
-            // TODO
-            this.Altura = altura;
+            // Cria a tela
             this.Largura = largura;
+            this.Altura = altura;
+            this.Tela = new char[this.Altura,this.Largura];
+            for(int i = 0; i < this.Altura; i++){
+                for(int j = 0; j < this.Largura; j++){
+                    this.Tela[i,j] = '*';
+                }
+            }
+            // Inicializa a tela
+            for(int i = 0; i < this.Altura; i++){
+                for(int j = 0; j < this.Largura; j++){
+                    Console.Write(this.Tela[i,j]);
+                }
+                Console.Write("\n");
+            }
         }
         public void EscreverTela(){
-            /*
-                Atualiza a tela do jogo
-            */
-            // TODO
-            throw new NotImplementedException();
+            // Reposicionar Cursor
+            Console.SetCursorPosition(0, Console.CursorTop -this.Altura); 
+            // Escrever tela
+            for(int i = 0; i < this.Altura; i++){
+                for(int j = 0; j < this.Largura; j++){
+                    Console.Write(this.Tela[i,j]);
+                }
+                Console.Write("\n");
+            }
         }
-        public void InserirCaracter(string caracter, int x, int y){
-            /*
-                Insere na tela o caracter nas posições corretas
-            */
-            // TODO
-            throw new NotImplementedException();
+        public void InserirCaracter(char caracter, int x, int y){
+            this.Tela[y,x] = caracter;
         }
-
     }
 }
