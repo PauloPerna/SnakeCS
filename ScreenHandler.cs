@@ -7,9 +7,9 @@ namespace Jogo{
     */
     class Screen{
         // Largura da Tela
-        private int Largura { get; set; }
+        public int Largura { get; set; }
         // Altura da Tela
-        private int Altura { get; set; }
+        public int Altura { get; set; }
         // A tela será uma matriz de Chars que serão escritas na tela do jogador
         //  com a função Write
         private char[,] Tela { get; set; }
@@ -25,7 +25,12 @@ namespace Jogo{
             this.Tela = new char[this.Altura,this.Largura];
             for(int i = 0; i < this.Altura; i++){
                 for(int j = 0; j < this.Largura; j++){
-                    this.Tela[i,j] = '*';
+                    // Essa condicao é para fazermos a 'borda' do jogo
+                    if(i == 0  || i == this.Altura-1 || j == 0 || j == this.Largura-1){
+                        this.Tela[i,j] = 'x';
+                    } else {
+                        this.Tela[i,j] = ' ';
+                    }
                 }
             }
             // Inicializa a tela
@@ -60,6 +65,17 @@ namespace Jogo{
             foreach(Dot ponto in cobrinha.Corpo){
                 InserirCaracter(ponto.Simbolo,ponto.PosicaoX,ponto.PosicaoY);
             }
+        }
+        public void RemoverCobra(Snake cobrinha){
+            // Insere a cabeça
+            InserirCaracter(' ',cobrinha.PosicaoX,cobrinha.PosicaoY);
+            // Insere o corpo
+            foreach(Dot ponto in cobrinha.Corpo){
+                InserirCaracter(' ',ponto.PosicaoX,ponto.PosicaoY);
+            }
+        }
+        public void InserirAlimento(Alimento alimento){
+            InserirCaracter(alimento.Simbolo,alimento.PosicaoX,alimento.PosicaoY);
         }
     }
 }
