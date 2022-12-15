@@ -1,4 +1,4 @@
-namespace ScreenHandler{
+namespace Jogo{
     /*
         Esse namespace é responsável pela interface com o usuário através do jogo.
         Deve conter funções para:
@@ -36,7 +36,8 @@ namespace ScreenHandler{
                 Console.Write("\n");
             }
         }
-        public void EscreverTela(){
+        // Atualiza toda a tela
+        public void AtualizarTela(){
             // Reposicionar Cursor
             Console.SetCursorPosition(0, Console.CursorTop -this.Altura); 
             // Escrever tela
@@ -47,8 +48,18 @@ namespace ScreenHandler{
                 Console.Write("\n");
             }
         }
+        // Insere um caracter na tela
         public void InserirCaracter(char caracter, int x, int y){
             this.Tela[y,x] = caracter;
+        }
+        // Insere a cobra na tela
+        public void InserirCobra(Snake cobrinha){
+            // Insere a cabeça
+            InserirCaracter(cobrinha.SimboloCabeca,cobrinha.PosicaoX,cobrinha.PosicaoY);
+            // Insere o corpo
+            foreach(Dot ponto in cobrinha.Corpo){
+                InserirCaracter(ponto.Simbolo,ponto.PosicaoX,ponto.PosicaoY);
+            }
         }
     }
 }
