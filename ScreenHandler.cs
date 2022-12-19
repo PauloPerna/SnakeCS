@@ -5,15 +5,15 @@ namespace Jogo{
         1. Controlar o tamanho da interface do jogo
         2. Controlar output de caracteres nas posições dadas
     */
-    class Screen{
+    class Tela{
         // Largura da Tela
         public int Largura { get; set; }
         // Altura da Tela
         public int Altura { get; set; }
         // A tela será uma matriz de Chars que serão escritas na tela do jogador
         //  com a função Write
-        private char[,] Tela { get; set; }
-        public Screen(int largura, int altura){
+        private char[,] Grid { get; set; }
+        public Tela(int largura, int altura){
             /*
                 Repare que o construtor também escreve a tela inicial do jogo,
                  isso é necessário para que já saibamos onde posicionar o cursor
@@ -22,21 +22,21 @@ namespace Jogo{
             // Cria a tela
             this.Largura = largura;
             this.Altura = altura;
-            this.Tela = new char[this.Altura,this.Largura];
+            this.Grid = new char[this.Altura,this.Largura];
             for(int i = 0; i < this.Altura; i++){
                 for(int j = 0; j < this.Largura; j++){
                     // Essa condicao é para fazermos a 'borda' do jogo
                     if(i == 0  || i == this.Altura-1 || j == 0 || j == this.Largura-1){
-                        this.Tela[i,j] = 'x';
+                        this.Grid[i,j] = 'x';
                     } else {
-                        this.Tela[i,j] = ' ';
+                        this.Grid[i,j] = ' ';
                     }
                 }
             }
             // Inicializa a tela
             for(int i = 0; i < this.Altura; i++){
                 for(int j = 0; j < this.Largura; j++){
-                    Console.Write(this.Tela[i,j]);
+                    Console.Write(this.Grid[i,j]);
                 }
                 Console.Write("\n");
             }
@@ -48,17 +48,17 @@ namespace Jogo{
             // Escrever tela
             for(int i = 0; i < this.Altura; i++){
                 for(int j = 0; j < this.Largura; j++){
-                    Console.Write(this.Tela[i,j]);
+                    Console.Write(this.Grid[i,j]);
                 }
                 Console.Write("\n");
             }
         }
         // Insere um caracter na tela
         public void InserirCaracter(char caracter, int x, int y){
-            this.Tela[y,x] = caracter;
+            this.Grid[y,x] = caracter;
         }
         // Insere a cobra na tela
-        public void InserirCobra(Snake cobrinha){
+        public void InserirCobra(Cobra cobrinha){
             // Insere a cabeça
             InserirCaracter(cobrinha.SimboloCabeca,cobrinha.PosicaoX,cobrinha.PosicaoY);
             // Insere o corpo
@@ -66,7 +66,7 @@ namespace Jogo{
                 InserirCaracter(ponto.Simbolo,ponto.PosicaoX,ponto.PosicaoY);
             }
         }
-        public void RemoverCobra(Snake cobrinha){
+        public void RemoverCobra(Cobra cobrinha){
             // Insere a cabeça
             InserirCaracter(' ',cobrinha.PosicaoX,cobrinha.PosicaoY);
             // Insere o corpo

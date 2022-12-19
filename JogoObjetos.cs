@@ -1,9 +1,9 @@
 using System.Linq;
 
 namespace Jogo{
-    public class Snake{
+    public class Cobra{
         /*
-            Essa classe será a Snake
+            Essa classe será a Cobra
         */
         public char SimboloCabeca { get; set; }
         public List<Dot> Corpo { get; set; }
@@ -14,8 +14,8 @@ namespace Jogo{
         // movimento 0: cima, 1: direita, 2: baixo, 3: esquerda
         public int MovimentoDirecao;
 
-        // Criar Snake com 1 dot
-        public Snake(int posicaoX, int posicaoY){
+        // Criar Cobra com 1 dot
+        public Cobra(int posicaoX, int posicaoY){
             this.PosicaoX = posicaoX;
             this.PosicaoY = posicaoY;
             this.SimboloCabeca = 'O';
@@ -25,18 +25,22 @@ namespace Jogo{
         }
 
         /*
-            Metodo para crescer a Snake
+            Metodo para crescer a Cobra
                 O novo tamanho será adicionado no próximo movimento,
                 onde o corpo todo ficará imóvel e o novo dot será adicionado
                 no local que estava o último dot 
         */
         public void Alimentar(Alimento alimento){
-            throw new NotImplementedException();
+            // Criamos o novo dot na posicao imediatamente abaixo do ultimo dot
+            int posicaoX = this.Corpo[this.Corpo.Count-1].PosicaoX;
+            int posicaoY = this.Corpo[this.Corpo.Count-1].PosicaoY+1;
+            this.Corpo.Add(new Dot(posicaoX,posicaoY));
         }
         public void Andar(int direcao){
             // Trocamos a posicao do ultimo pedaco do corpo pela posicao que estava a cabeca
-            this.Corpo[this.Corpo.Count-1].PosicaoX = this.PosicaoX;
-            this.Corpo[this.Corpo.Count-1].PosicaoY = this.PosicaoY;
+            foreach(Dot dot in this.Corpo){
+                
+            }
             switch(direcao){
                 case 0: // Cima
                     this.PosicaoY--;
@@ -57,7 +61,7 @@ namespace Jogo{
     }
     public class Dot{
     /*
-        Essa classe será cada pedaço da Snake
+        Essa classe será cada pedaço da Cobra
     */
         public char Simbolo { get; set; }
         public int PosicaoX { get; set; }
@@ -70,12 +74,12 @@ namespace Jogo{
     }
     public class Alimento{
         /*
-            Essa classe será o pontinho de alimento da Snake
+            Essa classe será o pontinho de alimento da Cobra
         */
         public char Simbolo { get; set; }
         public int PosicaoX { get; set; }
         public int PosicaoY { get; set; }
-        public Alimento(Snake cobrinha, int telaLargura, int telaAltura){
+        public Alimento(Cobra cobrinha, int telaLargura, int telaAltura){
             Random rnd = new Random();
             bool sobreposicaoCabeca = true;
             bool sobreposicaoCorpo = true;
