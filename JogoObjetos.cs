@@ -11,8 +11,8 @@ namespace Jogo{
         public int PosicaoY { get; set; }
         public bool Viva { get; set; }
         // Code smell forte aqui, mas ainda n sei como resolver
-        // movimento 0: cima, 1: direita, 2: baixo, 3: esquerda
-        public int MovimentoDirecao;
+        // movimento 0: cima; 1: direita; 2: baixo; 3: esquerda
+        public int MovimentoDirecao { get; set; }
 
         // Criar Cobra com 1 dot
         public Cobra(int posicaoX, int posicaoY){
@@ -24,6 +24,16 @@ namespace Jogo{
             this.Corpo = new List<Dot> {new Dot(this.PosicaoX,this.PosicaoY+1,1)};
         }
 
+        public void MudarDirecaoCobra(int novaDirecao){
+            // A seguinte lógica procura impedir que a cobra volte-se para trás
+            //  se vamos para a direita não podemos ir para a esquerda, se vamos
+            //  para cima não podemos ir para baixo etc
+            // Isso ocorre quando a soma de this.MovimentoDirecao com value é igual
+            //  a 2 ou igual a 4.
+            if(this.MovimentoDirecao + novaDirecao != 2 && this.MovimentoDirecao + novaDirecao != 4){
+                this.MovimentoDirecao = novaDirecao;
+            }
+        }
         /*
             Metodo para crescer a Cobra
                 O novo tamanho será adicionado no próximo movimento,
@@ -37,7 +47,11 @@ namespace Jogo{
             int posicaoNoCorpo = this.Corpo.Count()+1;
             this.Corpo.Add(new Dot(posicaoX,posicaoY,posicaoNoCorpo));
         }
-        public void Andar(int direcao){
+
+        /*
+            Metodo para fazer a Cobra andar 
+        */
+        public void Andar(){
             //Andar por 'rolamento': Vamos colocar o último dot do corpo na posicação atual da cabeça
             // depois atualizar a posição de todos os dots "O último vira o primeiro, o primeiro vira o segundo etc"
             // depois andar com a cabeça
@@ -47,7 +61,7 @@ namespace Jogo{
             foreach(Dot dot in this.Corpo){
                 dot.PosicaoNoCorpo++;
             }
-            switch(direcao){
+            switch(this.MovimentoDirecao){
                 case 0: // Cima
                     this.PosicaoY--;
                     break;

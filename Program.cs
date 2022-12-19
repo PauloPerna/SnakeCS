@@ -27,16 +27,16 @@
                     ConsoleKeyInfo key = Console.ReadKey(false);
                     switch(key.Key){
                         case ConsoleKey.UpArrow:
-                            cobrinha.MovimentoDirecao = 0;
+                            cobrinha.MudarDirecaoCobra(0);
                             break;
                         case ConsoleKey.RightArrow:
-                            cobrinha.MovimentoDirecao = 1;
+                            cobrinha.MudarDirecaoCobra(1);
                             break;
                         case ConsoleKey.DownArrow:
-                            cobrinha.MovimentoDirecao = 2;
+                            cobrinha.MudarDirecaoCobra(2);
                             break;
                         case ConsoleKey.LeftArrow:
-                            cobrinha.MovimentoDirecao = 3;
+                            cobrinha.MudarDirecaoCobra(3);
                             break;
                         default:
                             break;
@@ -45,7 +45,7 @@
 
                 // Andar com a Cobra
                 tela.RemoverCobra(cobrinha);
-                cobrinha.Andar(cobrinha.MovimentoDirecao);
+                cobrinha.Andar();
                 tela.InserirCobra(cobrinha);
                 
                 // Checar sobreposições da cabeça com
@@ -73,6 +73,9 @@
                 System.Threading.Thread.Sleep(tempoAtualizacao);
             }
             tela.FimDeJogo();
+        }
+        public bool ChecarColisao(){
+            throw new NotImplementedException();
         }
     }
 }
