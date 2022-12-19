@@ -51,9 +51,9 @@
                 // Checar sobreposições da cabeça com
                 //   com paredes
                 if(cobrinha.PosicaoX == 0 || 
-                    cobrinha.PosicaoX == tela.Largura || 
+                    cobrinha.PosicaoX == tela.Largura-1 || 
                     cobrinha.PosicaoY == 0 || 
-                    cobrinha.PosicaoY == tela.Altura){
+                    cobrinha.PosicaoY == tela.Altura-1){
                         cobrinha.Viva = false;
                     }
                 //   com alimento
