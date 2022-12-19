@@ -37,10 +37,10 @@ namespace Jogo{
             this.Corpo.Add(new Dot(posicaoX,posicaoY));
         }
         public void Andar(int direcao){
-            // Trocamos a posicao do ultimo pedaco do corpo pela posicao que estava a cabeca
-            foreach(Dot dot in this.Corpo){
-                
-            }
+            //Andar por 'rolamento': Vamos colocar o último dot do corpo na posicação atual da cabeça
+            // depois atualizar a posição de todos os dots "O último vira o primeiro, o primeiro vira o segundo etc"
+            // depois andar com a cabeça
+            Corpo.Select(c => c.)
             switch(direcao){
                 case 0: // Cima
                     this.PosicaoY--;
@@ -66,10 +66,12 @@ namespace Jogo{
         public char Simbolo { get; set; }
         public int PosicaoX { get; set; }
         public int PosicaoY { get; set; }
-        public Dot(int posicaoX, int posicaoY){
+        public int PosicaoNoCorpo;
+        public Dot(int posicaoX, int posicaoY, int posicaoNoCorpo){
             this.PosicaoX = posicaoX;
             this.PosicaoY = posicaoY;
             this.Simbolo = 'o';
+            this.PosicaoNoCorpo = posicaoNoCorpo;
         }
     }
     public class Alimento{
