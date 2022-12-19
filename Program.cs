@@ -7,7 +7,7 @@
             // Criamos a tela: Tela(largura, altura)
             Tela tela = new Tela(50,9);
             // Tempo em milisegundos de atualização da tela
-            int tempoAtualizacao = 250;
+            int tempoAtualizacao = 125;
             
             // Criar Cobra
             Cobra cobrinha = new Cobra(25,5);

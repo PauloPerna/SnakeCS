@@ -21,7 +21,7 @@ namespace Jogo{
             this.SimboloCabeca = 'O';
             this.MovimentoDirecao = 0;
             this.Viva = true;
-            this.Corpo = new List<Dot> {new Dot(this.PosicaoX,this.PosicaoY+1)};
+            this.Corpo = new List<Dot> {new Dot(this.PosicaoX,this.PosicaoY+1,1)};
         }
 
         /*
@@ -32,15 +32,21 @@ namespace Jogo{
         */
         public void Alimentar(Alimento alimento){
             // Criamos o novo dot na posicao imediatamente abaixo do ultimo dot
-            int posicaoX = this.Corpo[this.Corpo.Count-1].PosicaoX;
-            int posicaoY = this.Corpo[this.Corpo.Count-1].PosicaoY+1;
-            this.Corpo.Add(new Dot(posicaoX,posicaoY));
+            int posicaoX = 0;
+            int posicaoY = 0;
+            int posicaoNoCorpo = this.Corpo.Count()+1;
+            this.Corpo.Add(new Dot(posicaoX,posicaoY,posicaoNoCorpo));
         }
         public void Andar(int direcao){
             //Andar por 'rolamento': Vamos colocar o último dot do corpo na posicação atual da cabeça
             // depois atualizar a posição de todos os dots "O último vira o primeiro, o primeiro vira o segundo etc"
             // depois andar com a cabeça
-            Corpo.Select(c => c.)
+            this.Corpo.FirstOrDefault(c => c.PosicaoNoCorpo == this.Corpo.Count).PosicaoX = this.PosicaoX;
+            this.Corpo.FirstOrDefault(c => c.PosicaoNoCorpo == this.Corpo.Count).PosicaoY = this.PosicaoY;
+            this.Corpo.FirstOrDefault(c => c.PosicaoNoCorpo == this.Corpo.Count).PosicaoNoCorpo = 0;
+            foreach(Dot dot in this.Corpo){
+                dot.PosicaoNoCorpo++;
+            }
             switch(direcao){
                 case 0: // Cima
                     this.PosicaoY--;
