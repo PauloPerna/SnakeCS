@@ -23,13 +23,19 @@ namespace Jogo{
             this.Corpo = new List<Dot> {new Dot(this.PosicaoX,this.PosicaoY+1,1)};
         }
 
-        public void MudarDirecaoCobra(int novaDirecao){
+        public void MudarDirecaoCobra(Direction direction)
+        {
+            if (direction == Direction.Stay)
+                return;
+
+            int novaDirecao = (int)direction;
+
             // A seguinte lógica procura impedir que a cobra volte-se para trás
             //  se vamos para a direita não podemos ir para a esquerda, se vamos
             //  para cima não podemos ir para baixo etc
             // Isso ocorre quando a soma de this.MovimentoDirecao com value é igual
             //  a 2 ou igual a 4.
-            if(this.MovimentoDirecao + novaDirecao != 2 && this.MovimentoDirecao + novaDirecao != 4){
+            if (this.MovimentoDirecao + novaDirecao != 2 && this.MovimentoDirecao + novaDirecao != 4){
                 this.MovimentoDirecao = novaDirecao;
             }
         }
