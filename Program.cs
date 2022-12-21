@@ -5,15 +5,16 @@
         */
         static void Main(){
             // Criamos a tela: Tela(largura, altura)
-            Tela tela = new Tela(50,9);
+            Tela tela = new Tela(100,13);
             // Tempo em milisegundos de atualização da tela
             int tempoAtualizacao = 125;
             
-            // Criar Cobra
-            Cobra cobrinha = new Cobra(25,5);
+            // Criar Cobra no centro da tela
+            Cobra cobrinha = new Cobra(tela.Largura/2,tela.Altura/2);
             tela.InserirCobra(cobrinha);
 
-            // Criar alimento
+            // Criar alimento, cobra, tela largura e tela altura devem ser passados como
+            //  argumentos para evitar sobreposição
             Alimento comida = new Alimento(cobrinha,tela.Largura,tela.Altura);
             tela.InserirAlimento(comida);
 
@@ -22,21 +23,22 @@
 
             // Iniciar jogo
             while(cobrinha.Viva == true){
+
                 // Capturamos o proximo movimento
                 if(Console.KeyAvailable){
                     ConsoleKeyInfo key = Console.ReadKey(false);
                     switch(key.Key){
                         case ConsoleKey.UpArrow:
-                            cobrinha.MudarDirecaoCobra(0);
+                            cobrinha.MudarDirecaoCobra(0); // cima
                             break;
                         case ConsoleKey.RightArrow:
-                            cobrinha.MudarDirecaoCobra(1);
+                            cobrinha.MudarDirecaoCobra(1); // direita
                             break;
                         case ConsoleKey.DownArrow:
-                            cobrinha.MudarDirecaoCobra(2);
+                            cobrinha.MudarDirecaoCobra(2); // baixo
                             break;
                         case ConsoleKey.LeftArrow:
-                            cobrinha.MudarDirecaoCobra(3);
+                            cobrinha.MudarDirecaoCobra(3); // esquerda
                             break;
                         default:
                             break;
@@ -48,6 +50,7 @@
                 cobrinha.Andar();
                 tela.InserirCobra(cobrinha);
                 
+                // TODO: separar a parte de checar sobreposições em um método
                 // Checar sobreposições da cabeça com
                 //   com paredes
                 if(cobrinha.PosicaoX == 0 || 

@@ -10,8 +10,7 @@ namespace Jogo{
         public int PosicaoX { get; set; }
         public int PosicaoY { get; set; }
         public bool Viva { get; set; }
-        // Code smell forte aqui, mas ainda n sei como resolver
-        // movimento 0: cima; 1: direita; 2: baixo; 3: esquerda
+        // TODO: Mudar o MovimentoDirecao para um ENUM
         public int MovimentoDirecao { get; set; }
 
         // Criar Cobra com 1 dot
@@ -36,12 +35,11 @@ namespace Jogo{
         }
         /*
             Metodo para crescer a Cobra
-                O novo tamanho será adicionado no próximo movimento,
-                onde o corpo todo ficará imóvel e o novo dot será adicionado
-                no local que estava o último dot 
         */
         public void Alimentar(Alimento alimento){
-            // Criamos o novo dot na posicao imediatamente abaixo do ultimo dot
+            // Criamos o novo dot na posicao 0,0
+            //  esses valores não importam muito, já que no próximo movimento ele toma
+            //  a posicao do ultimo dot
             int posicaoX = 0;
             int posicaoY = 0;
             int posicaoNoCorpo = this.Corpo.Count()+1;
@@ -52,9 +50,9 @@ namespace Jogo{
             Metodo para fazer a Cobra andar 
         */
         public void Andar(){
-            //Andar por 'rolamento': Vamos colocar o último dot do corpo na posicação atual da cabeça
-            // depois atualizar a posição de todos os dots "O último vira o primeiro, o primeiro vira o segundo etc"
-            // depois andar com a cabeça
+            // Andar por 'rolamento': Vamos colocar o último dot do corpo na posicação atual da cabeça
+            //  depois atualizar a posição de todos os dots "O último vira o primeiro, o primeiro vira o segundo etc"
+            //  depois andar com a cabeça
             this.Corpo.FirstOrDefault(c => c.PosicaoNoCorpo == this.Corpo.Count).PosicaoX = this.PosicaoX;
             this.Corpo.FirstOrDefault(c => c.PosicaoNoCorpo == this.Corpo.Count).PosicaoY = this.PosicaoY;
             this.Corpo.FirstOrDefault(c => c.PosicaoNoCorpo == this.Corpo.Count).PosicaoNoCorpo = 0;
